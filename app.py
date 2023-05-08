@@ -3,8 +3,8 @@ import sqlite3
 import subprocess
 
 from flask import Flask, redirect, render_template, request, url_for
-#this is a test
-mydatabase = sqlite3.connect("databas.db", check_same_thread=False)
+
+mydatabase = sqlite3.connect("book_website/databas.db", check_same_thread=False)
 cur = mydatabase.cursor()
 app = Flask(__name__)
 datesss = datetime.date.today()
@@ -14,7 +14,7 @@ temp2 = temp - datetime.date.today()
 print("int version:", nows.split("-")[0])
 print(temp2)
 def create_users_table():
-    conn = sqlite3.connect("databas.db")
+    conn = sqlite3.connect("book_website/databas.db")
     cur = conn.cursor()
     cur.execute("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY,username TEXT UNIQUE NOT NULL,password TEXT NOT NULL)")
     conn.commit()
@@ -22,7 +22,7 @@ def create_users_table():
 
 
 def create_user_books_table():
-    conn = sqlite3.connect("databas.db")
+    conn = sqlite3.connect("book_website/databas.db")
     cur = conn.cursor()
     cur.execute("CREATE TABLE IF NOT EXISTS user_books (id INTEGER PRIMARY KEY, username TEXT NOT NULL, book TEXT NOT NULL, amount INTEGER NOT NULL)")
     conn.commit()
@@ -55,7 +55,7 @@ def login():
 
 @app.route("/admin", methods=["GET", "POST"])
 def admin():
-    mydatabase2 = sqlite3.connect("databas.db")
+    mydatabase2 = sqlite3.connect("book_website/databas.db")
     cur2 = mydatabase2.cursor()
     if request.method == "POST":
         if "title" in request.form:
@@ -93,7 +93,7 @@ def admin():
 
 @app.route("/guest", methods=["GET", "POST"])
 def guest():
-    mydatabase2 = sqlite3.connect("databas.db")
+    mydatabase2 = sqlite3.connect("book_website/databas.db")
     cur2 = mydatabase2.cursor()
     if request.method == "POST":
         if "Title" in request.form:
@@ -145,7 +145,7 @@ def register():
 
 @app.route("/user_page/<username>", methods=["GET", "POST"])
 def user_page(username):
-    mydatabase2 = sqlite3.connect("databas.db")
+    mydatabase2 = sqlite3.connect("book_website/databas.db")
     cur2 = mydatabase2.cursor()
     if request.method == "POST":
         if "Title" in request.form:
