@@ -3,7 +3,7 @@ import sqlite3
 import subprocess
 
 from flask import Flask, redirect, render_template, request, url_for
-
+#this is a test
 mydatabase = sqlite3.connect("databas.db", check_same_thread=False)
 cur = mydatabase.cursor()
 app = Flask(__name__)
