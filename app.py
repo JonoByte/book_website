@@ -32,11 +32,33 @@ def create_user_books_table():
     conn.commit()
     conn.close()
 
-def compare_dates():
+def request_payment(record_id):
+    print(f"Requesting payment for late book with record ID: {record_id}")
+    # code to request payment from user
+
+
+def compare_dates(username):
     con = sqlite3.connect("book_website/databas.db")
     cursor = con.cursor()
-    cursor.execute("SELECT timestamp FROM user_books")
-    return
+    cursor.execute("SELECT id, timestamp FROM user_books WHERE username=?", (username,))
+    date_records = cursor.fetchall()
+
+    current_date = datetime.date.today()
+    days_remaining = {}
+
+    for record in date_records:
+        record_id, timestamp = record
+        days_difference = (current_date - datetime.datetime.strptime(timestamp, "%Y-%m-%d").date()).days
+        days_left = 30 - days_difference
+
+        if days_difference > 30:
+            request_payment(record_id)
+        days_remaining[record_id] = days_left
+
+    con.close()
+    return days_remaining
+
+
 
 # Route for handling the login page logic
 @app.route("/", methods=["GET", "POST"])
@@ -160,7 +182,7 @@ def user_page(username):
         if "Title" in request.form:
             for title in request.form.getlist("Title"):
                 cur2.execute(
-                    f"INSERT INTO user_books(username, book, amount, timestamp) VALUES(?, ?, ?, '{temp}')",
+                    f"INSERT INTO user_books(username, book, amount, timestamp) VALUES(?, ?, ?, '{datetime.date.today()}')",
                     (username, title, 1),
                 )
         mydatabase2.commit()
@@ -168,8 +190,11 @@ def user_page(username):
     data = cur2.fetchall()
     cur2.execute("SELECT * FROM user_books WHERE username=?", (username,))
     data2 = cur2.fetchall()
+
+    days_remaining = compare_dates(username)
+
     return render_template(
-        "user_page.html", username=username, output_data=data, output_data2=data2
+        "user_page.html", username=username, output_data=data, output_data2=data2, days_remaining=days_remaining
     )
 
 
