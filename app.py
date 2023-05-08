@@ -7,12 +7,11 @@ from flask import Flask, redirect, render_template, request, url_for
 mydatabase = sqlite3.connect("book_website/databas.db", check_same_thread=False)
 cur = mydatabase.cursor()
 app = Flask(__name__)
+
 datesss = datetime.date.today()
-nows = "2018-05-25"
 temp = datesss + datetime.timedelta(days = 30)
 temp2 = temp - datetime.date.today()
-print("int version:", nows.split("-")[0])
-print(temp2)
+
 def create_users_table():
     conn = sqlite3.connect("book_website/databas.db")
     cur = conn.cursor()
@@ -39,7 +38,7 @@ def login():
 
         cur.execute(
             "SELECT * FROM users WHERE username = ? AND password = ?",
-            (username, password),
+            (username, password)
         )
         user = cur.fetchone()
 
@@ -130,7 +129,7 @@ def register():
         if cur.fetchone() is None:
             cur.execute(
                 "INSERT INTO users (username, password) VALUES (?, ?)",
-                (username, password),
+                (username, password)
             )
             mydatabase.commit()
             # mydatabase.close()
@@ -138,7 +137,7 @@ def register():
         else:
             return render_template(
                 "login.html",
-                error="User already exists, please choose another username.",
+                error="User already exists, please choose another username."
             )
     return render_template("login.html")
 
@@ -152,7 +151,7 @@ def user_page(username):
             for title in request.form.getlist("Title"):
                 cur2.execute(
                     f"INSERT INTO user_books(username, book, amount, timestamp) VALUES(?, ?, ?, '{temp}')",
-                    (username, title, 1),
+                    (username, title, 1)
                 )
         mydatabase2.commit()
     cur2.execute("SELECT * FROM Books")

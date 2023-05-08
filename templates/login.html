@@ -33,43 +33,63 @@
 text-shadow: rgb(77, 77, 77) 1px 0 10px;
 margin-bottom: 50%;
 }
+.bad-font {
+  font-family: "Comic Sans MS", cursive, sans-serif;
+}
 </style>
-<body class="centered-wrapper" bgcolor="CCCCCC">
-  <div class="centered-content">
-    <div class="date-text">
-      <p><font size="+10"><b>Date: <span id="datetime"></span></b></font></p>
 
-      <script>
-      var dt = new Date();
-      document.getElementById("datetime").innerHTML = dt.toLocaleDateString();
-      </script>
+<button id="fontChangeButton">Click</button>
+<head>
+  <body class="centered-wrapper" bgcolor="CCCCCC">
+    <div class="centered-content">
+      <div class="date-text">
+        <p><font size="+10"><b>Date: <span id="datetime"></span></b></font></p>
+
+        <script>
+        var dt = new Date();
+        document.getElementById("datetime").innerHTML = dt.toLocaleDateString();
+        </script>
+      </div>
+      <form action="" method="post" style="text-align:center;" novalidate>
+        <h1>Please login</h1>
+        <div style="margin-left: 36pt;">
+          <input type="text" placeholder="Username" name="username" value="{{
+              request.form.username }}">
+          <input type="password" placeholder="Password" name="password" value="{{
+              request.form.password }}">
+          <input class="btn btn-default" type="submit" value="Login">
+        </div>
+      </form>
+      <form action="guest" method="post" style="text-align: center" novalidate>
+        <br>
+        <input class="btn btn-default" type="submit" value="Login as guest">
+      </form>
+      <form action="/register" method="post" style="text-align:center;" novalidate>
+        <h1>Create an account</h1>
+        <div style="margin-left: 36pt;">
+            <input type="text" placeholder="Username" name="new_username" required>
+            <input type="password" placeholder="Password" name="new_password" required>
+            <input class="btn btn-default" type="submit" value="Register">
+        </div>
+    </form>
+      {% if error %}
+      <p class="error"><strong>Error:</strong> {{ error }}
+        {% endif %}
     </div>
-    <form action="" method="post" style="text-align:center;" novalidate>
-      <h1>Please login</h1>
-      <div style="margin-left: 36pt;">
-        <input type="text" placeholder="Username" name="username" value="{{
-            request.form.username }}">
-        <input type="password" placeholder="Password" name="password" value="{{
-            request.form.password }}">
-        <input class="btn btn-default" type="submit" value="Login">
-      </div>
-    </form>
-    <form action="guest" method="post" style="text-align: center" novalidate>
-      <br>
-      <input class="btn btn-default" type="submit" value="Login as guest">
-    </form>
-    <form action="/register" method="post" style="text-align:center;" novalidate>
-      <h1>Create an account</h1>
-      <div style="margin-left: 36pt;">
-          <input type="text" placeholder="Username" name="new_username" required>
-          <input type="password" placeholder="Password" name="new_password" required>
-          <input class="btn btn-default" type="submit" value="Register">
-      </div>
-  </form>
-    {% if error %}
-    <p class="error"><strong>Error:</strong> {{ error }}
-      {% endif %}
-  </div>
-</body>
-
+  </body>
+</head>
+<script>
+  function changeFont() {
+    const elements = document.querySelectorAll("b, b *")
+    elements.forEach(elements => {
+      element.classList.toggle.toggle("bad-font");
+    });
+    document.addEventListener("DOMContentLoaded", function () {
+      const button = document.querySelector("#fontChangeButton");
+      if (button) {
+        button.addEventListener("click", changeFont);
+      }
+    });
+  }
+</script>
 </html>
