@@ -9,13 +9,16 @@ cur = mydatabase.cursor()
 app = Flask(__name__)
 
 datesss = datetime.date.today()
-temp = datesss + datetime.timedelta(days = 30)
+temp = datesss + datetime.timedelta(days=30)
 temp2 = temp - datetime.date.today()
+
 
 def create_users_table():
     conn = sqlite3.connect("book_website/databas.db")
     cur = conn.cursor()
-    cur.execute("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY,username TEXT UNIQUE NOT NULL,password TEXT NOT NULL)")
+    cur.execute(
+        "CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY,username TEXT UNIQUE NOT NULL,password TEXT NOT NULL)"
+    )
     conn.commit()
     conn.close()
 
@@ -23,7 +26,9 @@ def create_users_table():
 def create_user_books_table():
     conn = sqlite3.connect("book_website/databas.db")
     cur = conn.cursor()
-    cur.execute("CREATE TABLE IF NOT EXISTS user_books (id INTEGER PRIMARY KEY, username TEXT NOT NULL, book TEXT NOT NULL, amount INTEGER NOT NULL)")
+    cur.execute(
+        "CREATE TABLE IF NOT EXISTS user_books (id INTEGER PRIMARY KEY, username TEXT NOT NULL, book TEXT NOT NULL, amount INTEGER NOT NULL)"
+    )
     conn.commit()
     conn.close()
 
@@ -38,7 +43,7 @@ def login():
 
         cur.execute(
             "SELECT * FROM users WHERE username = ? AND password = ?",
-            (username, password)
+            (username, password),
         )
         user = cur.fetchone()
 
@@ -90,6 +95,7 @@ def admin():
 # set a date in which the book was loaned from the database and then set a timer on 30 days if 30 within 30 days its not returned request payment
 # compare date from database and write days remaining in the html code so database dont take a lot of pressure
 
+
 @app.route("/guest", methods=["GET", "POST"])
 def guest():
     mydatabase2 = sqlite3.connect("book_website/databas.db")
@@ -115,7 +121,7 @@ def guest():
 def run_script():
     subprocess.run(["python", "/Users/datahaxx/Documents/jonathan/databas.py"])
     return "script ran"
-
+# test
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
@@ -129,7 +135,7 @@ def register():
         if cur.fetchone() is None:
             cur.execute(
                 "INSERT INTO users (username, password) VALUES (?, ?)",
-                (username, password)
+                (username, password),
             )
             mydatabase.commit()
             # mydatabase.close()
@@ -137,7 +143,7 @@ def register():
         else:
             return render_template(
                 "login.html",
-                error="User already exists, please choose another username."
+                error="User already exists, please choose another username.",
             )
     return render_template("login.html")
 
@@ -151,7 +157,7 @@ def user_page(username):
             for title in request.form.getlist("Title"):
                 cur2.execute(
                     f"INSERT INTO user_books(username, book, amount, timestamp) VALUES(?, ?, ?, '{temp}')",
-                    (username, title, 1)
+                    (username, title, 1),
                 )
         mydatabase2.commit()
     cur2.execute("SELECT * FROM Books")
@@ -164,6 +170,6 @@ def user_page(username):
 
 
 if __name__ == "__main__":
-    #create_users_table()
-    #create_user_books_table()
+    # create_users_table()
+    # create_user_books_table()
     app.run(debug=True)
