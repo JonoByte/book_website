@@ -32,6 +32,11 @@ def create_user_books_table():
     conn.commit()
     conn.close()
 
+def compare_dates():
+    con = sqlite3.connect("book_website/databas.db")
+    cursor = con.cursor()
+    cursor.execute("SELECT timestamp FROM user_books")
+    return
 
 # Route for handling the login page logic
 @app.route("/", methods=["GET", "POST"])
