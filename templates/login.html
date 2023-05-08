@@ -33,12 +33,7 @@
 text-shadow: rgb(77, 77, 77) 1px 0 10px;
 margin-bottom: 50%;
 }
-.bad-font {
-  font-family: "Comic Sans MS", cursive, sans-serif;
-}
 </style>
-
-<button id="fontChangeButton">Click</button>
 <head>
   <body class="centered-wrapper" bgcolor="CCCCCC">
     <div class="centered-content">
@@ -78,18 +73,4 @@ margin-bottom: 50%;
     </div>
   </body>
 </head>
-<script>
-  function changeFont() {
-    const elements = document.querySelectorAll("b, b *")
-    elements.forEach(elements => {
-      element.classList.toggle.toggle("bad-font");
-    });
-    document.addEventListener("DOMContentLoaded", function () {
-      const button = document.querySelector("#fontChangeButton");
-      if (button) {
-        button.addEventListener("click", changeFont);
-      }
-    });
-  }
-</script>
 </html>

@@ -121,7 +121,6 @@ def guest():
 def run_script():
     subprocess.run(["python", "/Users/datahaxx/Documents/jonathan/databas.py"])
     return "script ran"
-# test
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
