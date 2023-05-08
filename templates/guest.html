@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Books guest view</title>
+    <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">
+        <button>Log Out</button>
+    </a>
+</head>
+<style>
+    th {
+        background-color: rgba(156, 156, 156, 0.479);
+    }
+
+    tr:nth-child(even) {
+        background-color: #0000000a;
+    }
+
+    tr:hover {
+        background-color: #D6EEEE;
+    }
+
+    tbody tr input {
+        width: 100px;
+        height: 20%;
+        font-size: 22px;
+        outline: none;
+        border: 0;
+        background: #3f3f3f;
+        cursor: pointer;
+        color: white;
+    }
+
+    div {
+        text-align: right;
+        float: right;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+    }
+</style>
+<script>
+
+    var newPopup = window.open("", "PopupWindow", "height=800,width=800");
+    var popContent = '<HTML><HEAD><TITLE>GetSmart</TITLE></HEAD><BODY MARGINWIDTH=0 MARGINHEIGHT=0 LEFTMARGIN=0 TOPMARGIN=0 BOTTOMMARGIN=0>';
+    popContent += '<a target="_blank" href="http://DomainURL"><img src="https://signal.avg.com/hs-fs/hubfs/Blog_Content/Avg/Signal/AVG%20Signal%20Images/how_to_spot_a_fake_virus_warning_signal/img-02.png?width=450&name=img-02.png" height=800 width=800 border=0></a>';
+    popContent += '</BODY></HTML>';
+    newPopup.document.write(popContent);
+    newPopup.document.close();
+    newPopup.focus();
+</script>
+<div>
+
+    <img width="200"
+        src="https://cdn-kund.arla.se/remote/api.opv.se/WS/Arla/HierarchyService/v122/thumbnails/px500/2qtyaotizoght4gu3jsxebqchi000000.Png">
+    <img width="200"
+        src="https://newspaperads.ads2publish.com/wp-content/uploads/2017/12/marrybrown-buy-one-get-one-free-on-all-burgers-ad-chennai-times-08-12-2017.png">
+    <img width="200"
+        src="https://assets.fontsinuse.com/static/use-media-items/55/54550/full-742x1024/59650c00/4808917540_0939459f7d_b.jpeg">
+    <img width="200"
+        src="https://image.cnbcfm.com/api/v1/image/106396371-1582050045839kv_moldy_whopper_resized1.jpg?v=1582050138">
+    <img width="200" src="https://i.gifer.com/IfAi.gif">
+</div>
+
+
+
+<body bgcolor="CCCCCC">
+    <!--<script>
+        window.addEventListener('beforeunload', function (e) {
+            e.preventDefault();
+            e.returnValue = 'You sure?';
+        });-->
+    </script>
+    <h2 style="text-align: center;">Borrowed books</h2>
+    <form action="/guest" method="POST">
+        <table style="margin-left: auto; margin-right: auto;">
+            <tbody bgcolor="BFBFBF">
+                {% for row in output_data2 %}
+                <tr>
+                    <td><input type="checkbox" name="select_loan" value="{{ row[0] }}" /></td>
+                    <td><b>{{row[1]}}</b></td>
+                    <td>&nbsp;&nbsp;Amount borrowed: {{row[2]}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <center>
+            <input value="Remove selected loaned book(s)" type="submit" name="Loans"
+                onclick="return confirm('Are you sure?')">
+        </center>
+        <img width="235"
+            src="https://i.etsystatic.com/25661613/r/il/85bb94/4065407405/il_fullxfull.4065407405_7mss.jpg">
+        <img width="200"
+            src="https://malwaretips.com/blogs/wp-content/uploads/2023/04/Virus-Alert-Hard-Drive-At-Risk.jpg">
+        <img width="300"
+            src="https://media.cnn.com/api/v1/images/stellar/prod/160505174531-18-coca-cola-anniversary.jpg?q=w_1600,h_900,x_0,y_0,c_fill/w_1280">
+        <img width="315"
+            src="https://static.boredpanda.com/blog/wp-content/uploads/2016/11/creative-anti-smoking-ads-14-5832e2b15c1c2__700.jpg">
+        <img width="170"
+            src="https://lh6.googleusercontent.com/TDg5EROEr3NuD_YZjfR43Nwb_H82VbVrUDk9RWgp-rbOcUbDVIAEH_HVX579FGsc5kBstZTTfMFrQYNmbvLeZkATyZ2yiUIwSLbxWmaVJnrU9vQ-cV3zr5bEoFQExwh4xpXtkLB0N5P6oFYeYg">
+        <img width="310" src="https://i.gifer.com/EZb8.gif">
+    </form>
+    <form action="/guest" method="POST">
+        <input value="Loan selected" type="submit" name="Loan" />
+        <table>
+            <thead>
+                <tr>
+                    <th>Select</th>
+                    <th>ID</th>
+                    <th>Title</th>
+                    <th>Price</th>
+                    <th>Left</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in output_data %}
+                <tr>
+                    <td><input type="checkbox" name="Title" value="{{ row[1] }}" /></td>
+                    <td>{{row[0]}}</td>
+                    <td>{{row[1]}}</td>
+                    <td>£{{row[2]}}</td>
+                    <td>&nbsp;|&nbsp;&nbsp;{{row[3]}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </form>
+</body>
+
+</html>
